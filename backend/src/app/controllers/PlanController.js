@@ -36,6 +36,17 @@ class PlanController {
 
     return res.json(plan);
   }
+
+  async delete(req, res) {
+    const plan = await Plan.findByPk(req.params.id);
+    if (!plan) {
+      return res.status(400).json({ error: 'Plan does not exists' });
+    }
+
+    await plan.destroy();
+
+    return res.json(plan);
+  }
 }
 
 export default new PlanController();
