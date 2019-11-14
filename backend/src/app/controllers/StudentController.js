@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import Students from '../models/Students';
+import Student from '../models/Student';
 
 class StudentController {
   async store(req, res) {
@@ -18,7 +18,7 @@ class StudentController {
       return res.status(400).json({ error: 'Validations fails!' });
     }
 
-    const emailExists = await Students.findOne({
+    const emailExists = await Student.findOne({
       where: { email: req.body.email },
     });
     if (emailExists) {
@@ -46,7 +46,7 @@ class StudentController {
     /**
      * Check if students exists
      */
-    const students = await Students.findByPk(req.params.id);
+    const students = await Student.findByPk(req.params.id);
     if (!students) {
       return res.status(400).json({ error: 'Student not exists!' });
     }
