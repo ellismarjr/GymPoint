@@ -8,6 +8,7 @@ import PlanController from './app/controllers/PlanController';
 import EnrollmentController from './app/controllers/EnrollmentController';
 
 import authMiddleware from './app/middlewares/auth';
+import adminMiddleware from './app/middlewares/AdminValidator';
 
 const routes = new Router();
 
@@ -15,6 +16,7 @@ routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
+routes.use(adminMiddleware);
 
 routes.put('/users', UserController.update);
 
