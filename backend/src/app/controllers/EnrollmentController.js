@@ -7,6 +7,14 @@ import Plan from '../models/Plan';
 import { parseISO, format, isPast, addMonths } from 'date-fns';
 
 class EnrollmentController {
+  async index(req, res) {
+    const enrollments = await Enrollment.findAll({
+      order: [['end_date', 'ASC']],
+    });
+
+    return res.json(enrollments);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       start_date: Yup.date().required(),
