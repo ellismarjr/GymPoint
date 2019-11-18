@@ -25,7 +25,7 @@ class StudentController {
       return res.status(400).json({ error: 'E-mail already registered!' });
     }
 
-    const { id, name, age, weight, height } = await Students.create(req.body);
+    const { id, name, age, weight, height } = await Student.create(req.body);
 
     return res.json({ id, name, age, weight, height });
   }
