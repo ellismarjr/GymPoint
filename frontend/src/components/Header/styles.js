@@ -51,7 +51,9 @@ export const Profile = styled.div`
       margin-bottom: 4px;
     }
 
-    span {
+    button {
+      border: 0;
+      background: none;
       color: #de3b3b;
     }
   }

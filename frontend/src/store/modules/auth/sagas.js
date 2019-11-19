@@ -42,7 +42,13 @@ export function setToken({ payload }) {
   }
 }
 
+export function signOut() {
+  toast.success('Logout efetuado com sucesso!');
+  history.push('/');
+}
+
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+  takeLatest('@auth/SIGN_OUT', signOut),
 ]);
