@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 45px 30px;
+  padding: 40px 30px;
   background: #fff;
   width: 390px;
   height: 448px;
@@ -26,7 +26,7 @@ export const Content = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    margin-top: 20px;
 
     label {
       font-size: 14px;
@@ -50,8 +50,14 @@ export const Content = styled.div`
       }
     }
 
+    span {
+      color: #ee4d64;
+      align-self: flex-start;
+      margin: 0 0 8px;
+      font-weight: bold;
+    }
+
     button {
-      margin: 5px 0 0;
       height: 45px;
       background: #ee4d64;
       border-radius: 4px;
