@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import logo from '~/assets/logo_header.svg';
@@ -6,11 +7,12 @@ import logo from '~/assets/logo_header.svg';
 import { Container, Content, Profile } from './styles';
 
 export default function Header() {
+  const profile = useSelector(state => state.user.profile);
   return (
     <Container>
       <Content>
         <nav>
-          <Link>
+          <Link to="/dashboard">
             <img src={logo} alt="GymPoint" />
           </Link>
           <Link>
@@ -30,8 +32,8 @@ export default function Header() {
         <aside>
           <Profile>
             <div>
-              <Link>
-                <strong>Administrador</strong>
+              <Link to="/profile">
+                <strong>{profile.name}</strong>
               </Link>
               <Link>
                 <span>sair do sistema</span>
