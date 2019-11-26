@@ -20,19 +20,19 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <Link to="/dashboard">
+          <Link to="/">
             <img src={logo} alt="GymPoint" />
           </Link>
-          <Link>
+          <Link to="/students">
             <strong>ALUNOS</strong>
           </Link>
-          <Link>
+          <Link to="/plans">
             <strong>PLANOS</strong>
           </Link>
-          <Link>
+          <Link to="/enrollments">
             <strong>MATRÍCULAS</strong>
           </Link>
-          <Link>
+          <Link to="/awsers">
             <strong>PEDIDOS DE AUXÍLIO</strong>
           </Link>
         </nav>
@@ -43,7 +43,7 @@ export default function Header() {
               <Link to="/profile">
                 <strong>{profile.name}</strong>
               </Link>
-              <Link>
+              <Link to="/">
                 <button type="button" onClick={handleSignOut}>
                   sair do sistema
                 </button>
