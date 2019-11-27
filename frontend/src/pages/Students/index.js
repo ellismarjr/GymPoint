@@ -2,22 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Input } from '@rocketseat/unform';
 
+import { MdAdd, MdSearch } from 'react-icons/md';
+
 import api from '~/services/api';
 
-import { Container, StudantsList, Studant } from './styles';
+import { Container, StudantsList, Studant, Paginator } from './styles';
 
 export default function Students() {
   const [studantSearch, setStudantSearch] = useState();
   const [students, setStudents] = useState([]);
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState(false);
 
   useEffect(() => {
-    loadStudents();
-  }, []);
+    loadStudents(1);
+  }, []); //eslint-disable-line
 
-  async function loadStudents() {
+  async function loadStudents(currentPage) {
     try {
-      const response = await api.get('students');
-      setStudents(response.data);
+      const { data } = await api.get('students', {
+        params: { searchStudent: studantSearch, page: currentPage },
+      });
+
+      setPage(currentPage);
+      setLastPage(data.lastPage);
+      setStudents(data.content);
     } catch (err) {
       toast.error('Erro ao carregar alunos!');
     }
@@ -25,6 +34,16 @@ export default function Students() {
 
   function handleStudantSearch(e) {
     setStudantSearch(e.target.value);
+  }
+
+  function handlePreviousPage() {
+    const currentPage = page - 1;
+    loadStudents(currentPage);
+  }
+
+  function handleNextPage() {
+    const currentPage = page + 1;
+    loadStudents(currentPage);
   }
 
   return (
@@ -36,7 +55,7 @@ export default function Students() {
           <Input
             name="student"
             placeholder="Buscar aluno"
-            onKeyDown={event => event.key === 'Enter' && loadStudents()}
+            onKeyDown={event => event.key === 'Enter' && loadStudents(1)}
             onChange={handleStudantSearch}
           />
         </div>
@@ -68,6 +87,27 @@ export default function Students() {
           </tbody>
         </Studant>
       </StudantsList>
+
+      <Paginator>
+        <button
+          type="button"
+          disabled={page === 1}
+          onClick={() => {
+            handlePreviousPage();
+          }}
+        >
+          Anterior
+        </button>
+        <button
+          disabled={lastPage}
+          type="button"
+          onClick={() => {
+            handleNextPage();
+          }}
+        >
+          Próxima
+        </button>
+      </Paginator>
     </Container>
   );
 }

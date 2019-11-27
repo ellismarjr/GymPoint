@@ -45,7 +45,6 @@ export const StudantsList = styled.div`
   justify-content: space-between;
   padding: 30px;
   width: 100%;
-  height: 542px;
   border-radius: 4px;
   background: #fff;
 
@@ -78,6 +77,28 @@ export const Studant = styled.table`
           color: #de3b3b;
         }
       }
+    }
+  }
+`;
+
+export const Paginator = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background: #fff;
+    font-weight: bold;
+    color: #ee4d64;
+    font-size: 16px;
+    transition: background 0.2s;
+    &:disabled {
+      color: #ddd;
+    }
+    &:first-child {
+      margin-right: 10px;
     }
   }
 `;
