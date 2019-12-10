@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Input } from '@rocketseat/unform';
 
-import { MdAdd, MdSearch } from 'react-icons/md';
-
 import api from '~/services/api';
 
 import { Container, StudantsList, Studant, Paginator } from './styles';
