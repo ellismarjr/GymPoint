@@ -10,6 +10,18 @@ class EnrollmentController {
   async index(req, res) {
     const enrollments = await Enrollment.findAll({
       order: [['end_date', 'ASC']],
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['name'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['title'],
+        },
+      ],
     });
 
     return res.json(enrollments);
@@ -51,10 +63,7 @@ class EnrollmentController {
 
     const { duration, price } = plan;
 
-    const end_date = format(
-      addMonths(parseISO(start_date), duration),
-      'yyyy-MM-dd'
-    );
+    const end_date = addMonths(new Date(start_date), duration);
 
     const amount = price * duration;
 
