@@ -31,6 +31,7 @@ class StudentController {
       const lastPage = page * limit >= studentsCount;
 
       const students = await Student.findAll({
+        order: [['name', 'ASC']],
         where,
         limit,
         offset: (page - 1) * limit,
