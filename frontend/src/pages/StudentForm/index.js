@@ -56,14 +56,33 @@ export default function StudentForm() {
     return !id;
   }
 
-  async function handleSaveStudent(data) {
+  function saveStudent(data) {
+    if (isNewStudent()) {
+      handleNewStudent(data);
+    } else {
+      handleUpdateStudent(data);
+    }
+  }
+
+  async function handleNewStudent(data) {
+    try {
+      await api.post('students', data);
+      handleBack();
+    } catch (err) {
+      toast.error('Erro ao salvar novo aluno!');
+    }
+
+    toast.success('Novo aluno salvo com sucesso!');
+  }
+
+  async function handleUpdateStudent(data) {
     try {
       await api.put(`students/${id}`, data);
     } catch (err) {
       toast.error('Erro ao salvar registro!');
     }
 
-    toast.success('Aluno salvo com sucesso!');
+    toast.success('Aluno atualizado com sucesso!');
     handleBack();
   }
 
@@ -93,26 +112,31 @@ export default function StudentForm() {
         id="Form"
         initialData={student}
         schema={schema}
-        onSubmit={handleSaveStudent}
+        onSubmit={saveStudent}
       >
         <label>NOME COMPLETO</label>
-        <Input name="name" placeholder="Edward Snowden" />
+        <Input autoComplete="off" name="name" placeholder="Edward Snowden" />
 
         <label>ENDEREÇO DE E-MAIL</label>
-        <Input name="email" type="email" placeholder="exemplo@email.com" />
+        <Input
+          autoComplete="off"
+          name="email"
+          type="email"
+          placeholder="exemplo@email.com"
+        />
 
         <div>
           <div>
             <label>IDADE</label>
-            <Input name="age" type="number" />
+            <Input autoComplete="off" name="age" type="number" />
           </div>
           <div>
             <label>PESO (em kg) </label>
-            <Input name="weight" />
+            <Input autoComplete="off" name="weight" />
           </div>
           <div>
             <label>ALTURA</label>
-            <Input name="height" />
+            <Input autoComplete="off" name="height" />
           </div>
         </div>
       </Data>
