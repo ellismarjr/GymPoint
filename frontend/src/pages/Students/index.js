@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert';
 import { Input } from '@rocketseat/unform';
 
 import api from '~/services/api';
@@ -49,6 +50,34 @@ export default function Students() {
     history.push('/student/new');
   }
 
+  async function handleDeleteStudent(id) {
+    try {
+      await api.delete(`students/${id}`);
+    } catch (err) {
+      toast.error('Erro ao excluir aluno!');
+    }
+
+    toast.success('Aluno excluído com sucesso!');
+    loadStudents(1);
+  }
+
+  function handleConfirm(id, name) {
+    confirmAlert({
+      title: 'Exclusão de aluno',
+      message: `Deseja realmente excluir o aluno ${name}`,
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: () => handleDeleteStudent(id),
+        },
+        {
+          label: 'Não',
+          onClick: () => onclose(),
+        },
+      ],
+    });
+  }
+
   return (
     <Container>
       <header>
@@ -90,7 +119,12 @@ export default function Students() {
                   >
                     Editar
                   </button>
-                  <button type="button">Excluir</button>
+                  <button
+                    type="button"
+                    onClick={() => handleConfirm(student.id, student.name)}
+                  >
+                    Excluir
+                  </button>
                 </td>
               </tr>
             ))}
