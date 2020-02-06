@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { Input } from '@rocketseat/unform';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import { Container, StudantsList, Studant, Paginator } from './styles';
 
@@ -44,12 +45,18 @@ export default function Students() {
     loadStudents(currentPage);
   }
 
+  function handleNewStudant() {
+    history.push('/student/new');
+  }
+
   return (
     <Container>
       <header>
         <strong>Gerenciando alunos</strong>
         <div>
-          <button type="button">CADASTRAR</button>
+          <button type="button" onClick={() => handleNewStudant()}>
+            CADASTRAR
+          </button>
           <Input
             name="student"
             placeholder="Buscar aluno"
@@ -77,7 +84,12 @@ export default function Students() {
                 <td>{student.email}</td>
                 <td>{student.age}</td>
                 <td>
-                  <button type="button">Editar</button>
+                  <button
+                    type="button"
+                    onClick={() => history.push(`/student/${student.id}/edit`)}
+                  >
+                    Editar
+                  </button>
                   <button type="button">Excluir</button>
                 </td>
               </tr>
