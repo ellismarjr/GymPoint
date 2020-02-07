@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { confirmAlert } from 'react-confirm-alert';
+import { confirmAlert, onClose } from 'react-confirm-alert';
 import { Input } from '@rocketseat/unform';
 
 import api from '~/services/api';
@@ -61,21 +61,28 @@ export default function Students() {
     loadStudents(1);
   }
 
+  function handleClose() {
+    confirmAlert({ onClose });
+  }
+
   function handleConfirm(id, name) {
-    confirmAlert({
-      title: 'Exclusão de aluno',
-      message: `Deseja realmente excluir o aluno ${name}`,
-      buttons: [
-        {
-          label: 'Sim',
-          onClick: () => handleDeleteStudent(id),
-        },
-        {
-          label: 'Não',
-          onClick: () => onclose(),
-        },
-      ],
-    });
+    confirmAlert(
+      {
+        title: 'Exclusão de aluno',
+        message: `Deseja realmente excluir o aluno ${name}`,
+        buttons: [
+          {
+            label: 'Sim',
+            onClick: () => handleDeleteStudent(id),
+          },
+          {
+            label: 'Não',
+            onClick: () => handleClose(),
+          },
+        ],
+      },
+      { onClickOutside: true }
+    );
   }
 
   return (
