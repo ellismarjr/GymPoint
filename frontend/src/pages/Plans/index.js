@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import api from '~/services/api';
+import history from '~/services/history';
 import { formatPrice } from '~/util/format';
 
 import { Container, PlansList, Plan } from './styles';
@@ -23,11 +24,17 @@ export default function Plans() {
     }
   }
 
+  function handleNewPlan() {
+    history.push('/plan/new');
+  }
+
   return (
     <Container>
       <header>
         <strong>Gerenciando planos</strong>
-        <button type="button">CADASTRAR</button>
+        <button onClick={() => handleNewPlan()} type="button">
+          CADASTRAR
+        </button>
       </header>
 
       <PlansList>

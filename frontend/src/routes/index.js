@@ -9,6 +9,7 @@ import Students from '~/pages/Students';
 import StudentForm from '~/pages/StudentForm';
 
 import Plans from '~/pages/Plans';
+import PlanForm from '~/pages/Plans/PlansForm';
 import Enrollments from '~/pages/Enrollments';
 
 export default function Routes() {
@@ -21,6 +22,7 @@ export default function Routes() {
       <Route path="/student/new" component={StudentForm} isPrivate />
       <Route path="/student/:id/edit" component={StudentForm} isPrivate />
       <Route path="/plans" component={Plans} isPrivate />
+      <Route path="/plan/new" component={PlanForm} isPrivate />
       <Route path="/enrollments" component={Enrollments} isPrivate />
 
       <Route path="/" component={() => <h1>404</h1>} />
