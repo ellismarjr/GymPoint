@@ -12,11 +12,68 @@ import history from '~/services/history';
 
 import { Container, TopPage, Data } from './styles';
 
+const schema = Yup.object().shape({
+  title: Yup.string().required('Campo TÍTULO obrigatório!'),
+  duration: Yup.number()
+    .positive('Valor deve ser positivo!')
+    .typeError('Valor inválido!')
+    .required('Campo DURAÇÂO obrigatório!'),
+  price: Yup.number()
+    .typeError('Valor inválido!')
+    .required('Campo PREÇO obrigatório!'),
+});
+
 export default function PlansForm() {
+  const [plan, setPlan] = useState({});
   const { id } = useParams();
+
+  useEffect(() => {
+    if (!isNewPlan()) {
+      loadPlans();
+    }
+  }, []); //eslint-disable-line
+
+  async function loadPlans() {
+    try {
+      const { data } = await api.get(`plans/${id}`);
+      setPlan(data);
+    } catch (err) {
+      toast.error('Erro ao carregar plano!');
+    }
+  }
 
   function isNewPlan() {
     return !id;
+  }
+
+  function savePlan(data) {
+    if (isNewPlan()) {
+      handleNewPlan(data);
+    } else {
+      handleUpdatePlan(data);
+    }
+  }
+
+  async function handleNewPlan(data) {
+    try {
+      await api.post('plans', data);
+      handleBack();
+    } catch (err) {
+      toast.error('Erro ao salvar novo plano!');
+    }
+
+    toast.success('Novo Plano salvo com sucesso!');
+  }
+
+  async function handleUpdatePlan(data) {
+    try {
+      await api.put(`plans/${id}`, data);
+    } catch (error) {
+      toast.error('Erro ao atualizar plano');
+    }
+
+    toast.success('Plano atualizado com sucesso');
+    handleBack();
   }
 
   function handleBack() {
@@ -41,12 +98,7 @@ export default function PlansForm() {
         </div>
       </TopPage>
 
-      <Data
-        id="Form"
-        // initialData={student}
-        // schema={schema}
-        // onSubmit={saveStudent}
-      >
+      <Data id="Form" initialData={plan} schema={schema} onSubmit={savePlan}>
         <label>TÍTULO</label>
         <Input autoComplete="off" name="title" placeholder="GOLD" />
 

@@ -23,6 +23,7 @@ export default function Routes() {
       <Route path="/student/:id/edit" component={StudentForm} isPrivate />
       <Route path="/plans" component={Plans} isPrivate />
       <Route path="/plan/new" component={PlanForm} isPrivate />
+      <Route path="/plan/:id/edit" component={PlanForm} isPrivate />
       <Route path="/enrollments" component={Enrollments} isPrivate />
 
       <Route path="/" component={() => <h1>404</h1>} />
