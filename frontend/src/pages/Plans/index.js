@@ -51,7 +51,7 @@ export default function Plans() {
     confirmAlert(
       {
         title: 'Exclusão de Plano',
-        message: `Deseja realmente excluir o plano ${title}`,
+        message: `Deseja realmente excluir o plano ${title}?`,
         buttons: [
           {
             label: 'Sim',
