@@ -16,7 +16,6 @@ export default function Enrollments() {
   async function loadEnrollments() {
     try {
       const { data } = await api.get('enrollments');
-
       setEnrollments(data);
     } catch (err) {
       toast.error('Erro ao carregar matrículas!');
